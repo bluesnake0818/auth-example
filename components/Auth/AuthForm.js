@@ -16,6 +16,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
     confirmEmail: emailsDontMatch,
     password: passwordIsInvalid,
     confirmPassword: passwordsDontMatch,
+    username: usernameIsInvalid,
   } = credentialsInvalid;
 
   function updateInputValueHandler(inputType, enteredValue) {
@@ -32,6 +33,9 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       case 'confirmPassword':
         setEnteredConfirmPassword(enteredValue);
         break;
+      case 'username':
+        setEnteredUsername(enteredValue);
+        break;
     }
   }
 
@@ -41,6 +45,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
       confirmEmail: enteredConfirmEmail,
       password: enteredPassword,
       confirmPassword: enteredConfirmPassword,
+      username: enteredUsername,
     });
   }
 
@@ -80,6 +85,15 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
             secure
             value={enteredConfirmPassword}
             isInvalid={passwordsDontMatch}
+          />
+        )}
+        {!isLogin && (
+          <Input
+            label="Username"
+            onUpdateValue={updateInputValueHandler.bind(this, 'username')}
+            value={enteredUsername}
+            keyboardType="default"
+            isInvalid={usernameIsInvalid}
           />
         )}
         <View style={styles.buttons}>

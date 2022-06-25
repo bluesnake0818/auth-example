@@ -12,6 +12,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
   const [credentialsInvalid, setCredentialsInvalid] = useState({
     email: false,
     password: false,
+    username: false,
     confirmEmail: false,
     confirmPassword: false,  
   });
@@ -24,20 +25,25 @@ function AuthContent({ isLogin, onAuthenticate }) {
     }
   }
 
+  // validation & sign up request when form submit button is pressed
+
   function submitHandler(credentials) {
-    let { email, confirmEmail, password, confirmPassword } = credentials;
+    let { email, confirmEmail, password, confirmPassword, username } = credentials;
 
     email = email.trim();
     password = password.trim();
+    username = username.trim();
 
     const emailIsValid = email.includes('@');
     const passwordIsValid = password.length > 6;
     const emailsAreEqual = email === confirmEmail;
     const passwordsAreEqual = password === confirmPassword;
+    const usernameIsValid = password.length > 1;
 
     if (
       !emailIsValid ||
       !passwordIsValid ||
+      !usernameIsValid ||
       (!isLogin && (!emailsAreEqual || !passwordsAreEqual))
     ) {
       Alert.alert('Invalid input', 'Please check your entered credentials.');
@@ -46,10 +52,11 @@ function AuthContent({ isLogin, onAuthenticate }) {
         confirmEmail: !emailIsValid || !emailsAreEqual,
         password: !passwordIsValid,
         confirmPassword: !passwordIsValid || !passwordsAreEqual,
+        username: !usernameIsValid,
       });
       return;
     }
-    onAuthenticate({ email, password });
+    onAuthenticate({ email, password, username });
   }
 
   return (
