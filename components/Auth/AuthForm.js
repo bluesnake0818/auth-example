@@ -9,6 +9,7 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
   const [enteredConfirmEmail, setEnteredConfirmEmail] = useState('');
   const [enteredPassword, setEnteredPassword] = useState('');
   const [enteredConfirmPassword, setEnteredConfirmPassword] = useState('');
+  const [enteredUsername, setEnteredUsername] = useState('')
 
   const {
     email: emailIsInvalid,
