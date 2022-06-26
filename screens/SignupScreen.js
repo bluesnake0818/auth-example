@@ -12,12 +12,12 @@ function SignupScreen() {
 
   const authCtx = useContext(AuthContext);
 
-  async function signupHandler({ email, password, username }) {
+  async function signupHandler({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications }) {
     setIsAuthenticating(true);
     try {
       const token = await createUser(email, password);
       authCtx.authenticate(token);
-      storeUser({ email, password, username });
+      token && storeUser({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications });
     } catch (error) {
       Alert.alert(
         'Authentication failed',
