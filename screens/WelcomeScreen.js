@@ -6,21 +6,36 @@ import { AuthContext } from '../store/auth-context';
 // import auth from '@react-native-firebase/auth';
 
 function WelcomeScreen() {
-  const [fetchedMessage, setFetchedMesssage] = useState('fetched');
+  const [fetchedMessage, setFetchedMesssage] = useState('');
 
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
 
+  // useEffect(() => {
+  //   axios
+  //     .get(
+  //       'https://react-native-course-3cceb-default-rtdb.firebaseio.com/message.json?auth=' +
+  //         token
+  //     )
+  //     .then((response) => {
+  //       setFetchedMesssage(response.data.email);
+  //     });
+  // }, [token]);
+  const API_KEY = 'AIzaSyA4Yngj86Jb3PROOM5MkqCRARjBhLvnBA4'
+  const url = `https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=${API_KEY}`;
+
   useEffect(() => {
     axios
-      .get(
-        'https://react-native-course-3cceb-default-rtdb.firebaseio.com/message.json?auth=' +
-          token
-      )
+      .post(url, {
+        idToken: token 
+      })
       .then((response) => {
-        setFetchedMesssage(response.data);
+        setFetchedMesssage(response.data.users[0].email)
+        console.log(response.data.users[0].localId)
       });
   }, [token]);
+
+
 
   // console.log(token)
 
@@ -47,7 +62,7 @@ function WelcomeScreen() {
       <Text style={styles.title}>Welcome!</Text>
       <Text>You authenticated successfully!</Text>
       <Text>{fetchedMessage}</Text>
-      <Text>{token}</Text>
+      {/* <Text>{token}</Text> */}
       {/* <Text>{user.email}</Text> */}
     </View>
   );
