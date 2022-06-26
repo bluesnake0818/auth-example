@@ -22,7 +22,7 @@ function WelcomeScreen() {
       });
   }, [token]);
 
-  console.log(token)
+  // console.log(token)
 
   // useEffect(() => {
   //   axios

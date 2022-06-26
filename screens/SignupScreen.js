@@ -17,9 +17,11 @@ function SignupScreen() {
     try {
       const response = await createUser(email, password);
       const token = response.data.idToken;
-      // const email = response.
+      // const email = response.data.email;
+      const uid = response.data.localId;
+      console.log(uid)
       authCtx.authenticate(token);
-      token && storeUser({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications });
+      token && storeUser({ uid, email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications });
     } catch (error) {
       Alert.alert(
         'Authentication failed',
