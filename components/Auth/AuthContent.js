@@ -130,6 +130,7 @@ function AuthContent({ isLogin, onAuthenticate }) {
         confirmEmail: !emailIsValid || !emailsAreEqual,
         password: !passwordIsValid,
         confirmPassword: !passwordIsValid || !passwordsAreEqual,
+        username: !usernameIsValid,
         phoneNumber: !phoneNumberIsValid,
         birthPlace: !birthPlaceIsValid,
         dob: !dobIsValid,

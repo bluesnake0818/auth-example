@@ -15,7 +15,9 @@ function SignupScreen() {
   async function signupHandler({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications }) {
     setIsAuthenticating(true);
     try {
-      const token = await createUser(email, password);
+      const response = await createUser(email, password);
+      const token = response.data.idToken;
+      // const email = response.
       authCtx.authenticate(token);
       token && storeUser({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications });
     } catch (error) {
