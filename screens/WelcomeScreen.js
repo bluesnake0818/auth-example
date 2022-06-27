@@ -6,7 +6,9 @@ import { AuthContext } from '../store/auth-context';
 // import auth from '@react-native-firebase/auth';
 
 function WelcomeScreen() {
-  const [fetchedMessage, setFetchedMesssage] = useState('');
+  const [userId, setUserId] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  // const [fetchedMessage, setFetchedMesssage] = useState('')
 
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
@@ -30,40 +32,21 @@ function WelcomeScreen() {
         idToken: token 
       })
       .then((response) => {
-        setFetchedMesssage(response.data.users[0].email)
-        console.log(response.data.users[0].localId)
+        // setFetchedMesssage(response.data.users[0].localId)
+        setUserId(response.data.users[0].localId)
+        setUserEmail(response.data.users[0].email)
       });
   }, [token]);
 
-
-
-  // console.log(token)
-
-  // useEffect(() => {
-  //   axios
-  //     .get(
-  //       'https://react-native-course-3cceb-default-rtdb.firebaseio.com/message.json?auth=' +
-  //         token
-  //     )
-  //     .then((response) => {
-  //       setFetchedMesssage(response.data);
-  //     });
-  // }, [token]);
-
-  // const uid = auth.getCurrentUser().getUid();
-  // const user = auth().currentUser;
-
-  // if (user) {
-  // console.log('User email: ', user.email);
-  // }
+  // console.log(fetchedMessage)
 
   return (
     <View style={styles.rootContainer}>
       <Text style={styles.title}>Welcome!</Text>
       <Text>You authenticated successfully!</Text>
-      <Text>{fetchedMessage}</Text>
-      {/* <Text>{token}</Text> */}
-      {/* <Text>{user.email}</Text> */}
+      {/* <Text>{fetchedMessage}</Text> */}
+      <Text>{userId}</Text>
+      <Text>{userEmail}</Text>
     </View>
   );
 }

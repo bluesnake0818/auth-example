@@ -15,16 +15,22 @@ function SignupScreen() {
   async function signupHandler({ email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications }) {
     setIsAuthenticating(true);
     try {
-      const response = await createUser(email, password);
-      const token = response.data.idToken;
-      const uid = response.data.localId;
+      const data = await createUser(email, password);
+      const token = await data.idToken;
+      const uid = await data.localId;
       authCtx.authenticate(token);
       storeUser({ uid, email, password, username, phoneNumber, birthPlace, dob, gender, pronouns, zodiac, aboutMe, interest1, interest2, interest3, currLocation, timeOfBirth, notifications });
-    } catch (error) {
-      Alert.alert(
-        'Authentication failed',
-        'Could not create user, please check your input and try again later.'
-      );
+    } catch (error)
+      {
+        if (error.response) {
+          console.log(error.response.data)
+          console.log(error.response.status)
+          console.log(error.response.headers)
+        } else if (error.request) {
+          console.log(error.request)
+        } else {
+          console.log('Error', error.message)
+        }
       setIsAuthenticating(false);
     }
   }
